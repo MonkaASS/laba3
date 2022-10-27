@@ -2,13 +2,13 @@
 
 using namespace std;
 
-// функция изменяет матрицу tmpMatrix понижая порядок матрицы на один относительно одного из элементов первой строки originalMatrixRow
-void subMatrix(int** matrix, int** tmpMatrix, unsigned int size, int originalMatrixRow) {
+// функция изменяет матрицу tmpMatrix понижая порядок матрицы на один относительно одного из элементов первой строки originalMatrixCol
+void subMatrix(int** matrix, int** tmpMatrix, unsigned int size, int originalMatrixCol) {
 	int tmpMatrixRow = 0;
 	int tmpMatrixCol = 0;
 	for (int row = 0; row < size; row++) {
 		for (int col = 0; col < size; col++) {
-			if (row != 0 && col != originalMatrixRow) {
+			if (row != 0 && col != originalMatrixCol) {
 				tmpMatrix[tmpMatrixRow][tmpMatrixCol] = matrix[row][col];
 				tmpMatrixCol++;
 			}

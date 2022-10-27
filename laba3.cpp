@@ -1,37 +1,8 @@
-/* Тема: Функции
-
-Вопросы:
-1.	Функция.Функции в C++
-2.	Процедура
-3.	Подпрограмма
-4.	Концептуализация кода и интерфейс функции
-5.	Декомпозиция
-6.	Сигнатура и прототип
-7.	Вызов функции и оператор return
-8.	Аргументы и параметры
-9.	Аргументы по умолчанию
-10.	Перегрузка функций
-11.	Правила вызова перегруженной функции
-12.	Рекурсия
-13.	Область видимости переменной
-14.	Время жизни переменной
-15.	Static - переменная функции
-16.	Препроцессор и директивы препроцессора*/
-
 #include <iostream>
 
 using namespace std;
 
-// Определитель вычисляется рекурсией по первой строке следующим образом:
-/*
-| 1 2 3 |       | 5 6 |       | 4 6 |       | 4 5 |
-| 4 5 6 | = 1 * | 8 9 | - 2 * | 7 9 | + 3 * | 7 8 |
-| 7 8 9 |
-*/
-// и так матрица при порядке n > 2 с помощью рекурсии приходит к виду матрицы 2-ого порядка, где определитель
-// вычисляется как произведение элементов главной диагонали минус произведение элементов побочной.
-
-// функция изменяет матрицу tmpMatrix понижая порядок матрицы на один относительно одного из элементов первой строки originalMatrixRow
+// ГґГіГ­ГЄГ¶ГЁГї ГЁГ§Г¬ГҐГ­ГїГҐГІ Г¬Г ГІГ°ГЁГ¶Гі tmpMatrix ГЇГ®Г­ГЁГ¦Г Гї ГЇГ®Г°ГїГ¤Г®ГЄ Г¬Г ГІГ°ГЁГ¶Г» Г­Г  Г®Г¤ГЁГ­ Г®ГІГ­Г®Г±ГЁГІГҐГ«ГјГ­Г® Г®Г¤Г­Г®ГЈГ® ГЁГ§ ГЅГ«ГҐГ¬ГҐГ­ГІГ®Гў ГЇГҐГ°ГўГ®Г© Г±ГІГ°Г®ГЄГЁ originalMatrixRow
 void subMatrix(int** matrix, int** tmpMatrix, unsigned int size, int originalMatrixRow) {
 	int tmpMatrixRow = 0;
 	int tmpMatrixCol = 0;
@@ -49,7 +20,7 @@ void subMatrix(int** matrix, int** tmpMatrix, unsigned int size, int originalMat
 	}
 }
 
-// Функция непосредственно подсчитывает определитель матрицы n-го порядка
+// Г”ГіГ­ГЄГ¶ГЁГї Г­ГҐГЇГ®Г±Г°ГҐГ¤Г±ГІГўГҐГ­Г­Г® ГЇГ®Г¤Г±Г·ГЁГІГ»ГўГ ГҐГІ Г®ГЇГ°ГҐГ¤ГҐГ«ГЁГІГҐГ«Гј Г¬Г ГІГ°ГЁГ¶Г» n-ГЈГ® ГЇГ®Г°ГїГ¤ГЄГ 
 int matrixDeterminant(int** matrix, unsigned int size) {
     int determinant = 0;
     if (size == 1) {
@@ -61,7 +32,7 @@ int matrixDeterminant(int** matrix, unsigned int size) {
 	else if (size > 2) {
         int sign = 1;
         for (int i = 0; i < size; i++) {
-			// создаем матрицу, в которой будет содеражться матрица на порядок ниже
+			// Г±Г®Г§Г¤Г ГҐГ¬ Г¬Г ГІГ°ГЁГ¶Гі, Гў ГЄГ®ГІГ®Г°Г®Г© ГЎГіГ¤ГҐГІ Г±Г®Г¤ГҐГ°Г Г¦ГІГјГ±Гї Г¬Г ГІГ°ГЁГ¶Г  Г­Г  ГЇГ®Г°ГїГ¤Г®ГЄ Г­ГЁГ¦ГҐ
             int** tmpMatrix = new int* [size - 1];
             for (int r = 0; r < size - 1; r++) {
                 tmpMatrix[r] = new int[size - 1];
@@ -70,11 +41,11 @@ int matrixDeterminant(int** matrix, unsigned int size) {
 			
 			subMatrix(matrix, tmpMatrix, size, i);
 
-			// вот тут рекурсия 
+			// ГўГ®ГІ ГІГіГІ Г°ГҐГЄГіГ°Г±ГЁГї 
             determinant += sign * matrix[0][i] * matrixDeterminant(tmpMatrix, size - 1);
             sign = -sign;
 
-			// ну и память не забываем очищать
+			// Г­Гі ГЁ ГЇГ Г¬ГїГІГј Г­ГҐ Г§Г ГЎГ»ГўГ ГҐГ¬ Г®Г·ГЁГ№Г ГІГј
 			for (int r = 0; r < size - 1; r++) {
 				delete[] tmpMatrix[r];
 			}
@@ -87,11 +58,11 @@ int matrixDeterminant(int** matrix, unsigned int size) {
 
 int main()
 {
-	// вводим длину
+	// ГўГўГ®Г¤ГЁГ¬ Г¤Г«ГЁГ­Гі
 	unsigned int size;
 	cin >> size;
 
-	// дин матрица
+	// Г¤ГЁГ­ Г¬Г ГІГ°ГЁГ¶Г 
 	int** matrix = new int* [size];
 	for (int i = 0; i < size; i++) {
 		matrix[i] = new int[size];
@@ -105,7 +76,7 @@ int main()
 
 	cout << matrixDeterminant(matrix, size);
 
-	// и память очищаем
+	// ГЁ ГЇГ Г¬ГїГІГј Г®Г·ГЁГ№Г ГҐГ¬
 	for (int i = 0; i < size; ++i)
 		delete[] matrix[i];
 	delete[] matrix;

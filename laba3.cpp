@@ -2,7 +2,7 @@
 
 using namespace std;
 
-// ôóíêöèÿ èçìåíÿåò ìàòðèöó tmpMatrix ïîíèæàÿ ïîðÿäîê ìàòðèöû íà îäèí îòíîñèòåëüíî îäíîãî èç ýëåìåíòîâ ïåðâîé ñòðîêè originalMatrixRow
+// функция изменяет матрицу tmpMatrix понижая порядок матрицы на один относительно одного из элементов первой строки originalMatrixRow
 void subMatrix(int** matrix, int** tmpMatrix, unsigned int size, int originalMatrixRow) {
 	int tmpMatrixRow = 0;
 	int tmpMatrixCol = 0;
@@ -20,7 +20,7 @@ void subMatrix(int** matrix, int** tmpMatrix, unsigned int size, int originalMat
 	}
 }
 
-// Ôóíêöèÿ íåïîñðåäñòâåííî ïîäñ÷èòûâàåò îïðåäåëèòåëü ìàòðèöû n-ãî ïîðÿäêà
+// Функция непосредственно подсчитывает определитель матрицы n-го порядка
 int matrixDeterminant(int** matrix, unsigned int size) {
     int determinant = 0;
     if (size == 1) {
@@ -32,7 +32,7 @@ int matrixDeterminant(int** matrix, unsigned int size) {
 	else if (size > 2) {
         int sign = 1;
         for (int i = 0; i < size; i++) {
-			// ñîçäàåì ìàòðèöó, â êîòîðîé áóäåò ñîäåðàæòüñÿ ìàòðèöà íà ïîðÿäîê íèæå
+			// создаем матрицу, в которой будет содеражться матрица на порядок ниже
             int** tmpMatrix = new int* [size - 1];
             for (int r = 0; r < size - 1; r++) {
                 tmpMatrix[r] = new int[size - 1];
@@ -41,11 +41,11 @@ int matrixDeterminant(int** matrix, unsigned int size) {
 			
 			subMatrix(matrix, tmpMatrix, size, i);
 
-			// âîò òóò ðåêóðñèÿ 
+			// вот тут рекурсия
             determinant += sign * matrix[0][i] * matrixDeterminant(tmpMatrix, size - 1);
             sign = -sign;
 
-			// íó è ïàìÿòü íå çàáûâàåì î÷èùàòü
+			// ну и память не забываем очищать
 			for (int r = 0; r < size - 1; r++) {
 				delete[] tmpMatrix[r];
 			}
@@ -58,11 +58,11 @@ int matrixDeterminant(int** matrix, unsigned int size) {
 
 int main()
 {
-	// ââîäèì äëèíó
+	// вводим длину
 	unsigned int size;
 	cin >> size;
 
-	// äèí ìàòðèöà
+	// дин матрица
 	int** matrix = new int* [size];
 	for (int i = 0; i < size; i++) {
 		matrix[i] = new int[size];
@@ -76,7 +76,7 @@ int main()
 
 	cout << matrixDeterminant(matrix, size);
 
-	// è ïàìÿòü î÷èùàåì
+	// и память очищаем
 	for (int i = 0; i < size; ++i)
 		delete[] matrix[i];
 	delete[] matrix;

@@ -43,6 +43,7 @@ int matrixDeterminant(int** matrix, unsigned int size) {
 
 			// вот тут рекурсия
             determinant += sign * matrix[0][i] * matrixDeterminant(tmpMatrix, size - 1);
+			// чередуем знаки по первому столбцу
             sign = -sign;
 
 			// ну и память не забываем очищать

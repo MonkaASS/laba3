@@ -59,6 +59,8 @@ int matrixDeterminant(int** matrix, unsigned int size) {
 
 int main()
 {
+	setlocale(LC_ALL, "Russian");
+	cout << "Введите размерность матрицы n * n (n > 0):" << endl;
 	// вводим длину
 	unsigned int size;
 	cin >> size;
@@ -68,14 +70,14 @@ int main()
 	for (int i = 0; i < size; i++) {
 		matrix[i] = new int[size];
 	}
-
+	cout << "Введите значения матрицы:" << endl;
 	for (int i = 0; i < size; i++) {
 		for (int j = 0; j < size; j++) {
 			cin >> matrix[i][j];
 		}
 	}
 
-	cout << matrixDeterminant(matrix, size);
+	cout << "Определитель = " << matrixDeterminant(matrix, size);
 
 	// и память очищаем
 	for (int i = 0; i < size; ++i)
